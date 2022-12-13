@@ -59,7 +59,7 @@ class BleakDevice:
             bytearray(value),
             wait_for_response))
     def subscribe(self, uuid, callback=None, indication=False, wait_for_response=True):
-        def wrap(declaration_handle, data):
-            value_handle = declaration_handle + 1
+        def wrap(gatt_characteristics, data):
+            value_handle = gatt_characteristics.handle + 1
             callback(value_handle, data)
         _wait(self._client.start_notify(uuid, wrap))
